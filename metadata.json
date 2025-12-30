@@ -1,0 +1,7 @@
+{
+  "name": "District Wushu Association Srinagar",
+  "description": "A professional management platform for Wushu events, players, and officials in Srinagar, featuring tournament management, automated fixtures, and digital ID cards.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
