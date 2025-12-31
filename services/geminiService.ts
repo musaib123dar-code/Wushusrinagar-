@@ -1,7 +1,6 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// We initialize the client inside the methods to ensure the latest API key is used
 export const geminiService = {
   /**
    * Generates a professional press release summary for a Wushu tournament
@@ -15,25 +14,29 @@ export const geminiService = {
       });
       return response.text || "An exciting upcoming Wushu event showcasing the best talent in Srinagar.";
     } catch (error: any) {
-      // Log more detailed info but provide a clean fallback
-      console.warn("AI summary generation skipped due to service availability:", error?.message);
-      return "The District Wushu Association Srinagar is proud to host this upcoming championship, bringing together the finest Sanda and Taolu athletes for a display of skill, discipline, and sportsmanship.";
+      console.warn("AI summary generation skipped:", error?.message);
+      return "The District Wushu Association Srinagar is proud to host this upcoming championship, bringing together the finest Sanda and Taolu athletes.";
     }
   },
 
   /**
-   * Provides motivational coaching feedback based on player performance statistics
+   * Provides deep strategic analysis using Thinking Mode (Gemini 3 Pro)
+   * Instructions: gemini-3-pro-preview, thinkingBudget: 32768, no maxOutputTokens.
    */
-  async analyzePerformance(stats: any) {
+  async getComplexAnalysis(query: string, context: any) {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: `Analyze these Wushu player stats: ${JSON.stringify(stats)}. Provide a short motivational feedback for the player.`
+        model: 'gemini-3-pro-preview',
+        contents: `Context: ${JSON.stringify(context)}\n\nUser Query: ${query}\n\nAs an expert Wushu Association Advisor, provide a deeply reasoned, strategic response. Think through the logistics, regulations, and athletic development aspects carefully.`,
+        config: {
+          thinkingConfig: { thinkingBudget: 32768 }
+        }
       });
-      return response.text || "Keep training hard and master your forms!";
-    } catch (error) {
-      return "Your dedication to the art of Wushu is inspiring. Focus on your daily drills and the results will follow. Stay strong!";
+      return response.text;
+    } catch (error: any) {
+      console.error("Complex analysis failed:", error);
+      return "The strategic core is currently under maintenance. Please try again shortly.";
     }
   }
 };
