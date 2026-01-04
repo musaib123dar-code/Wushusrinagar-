@@ -58,7 +58,7 @@ export class WebRTCService {
   async getScreenStream(): Promise<MediaStream> {
     try {
       this.screenStream = await navigator.mediaDevices.getDisplayMedia({
-        video: { cursor: 'always' },
+        video: true,
         audio: false
       });
       return this.screenStream;
@@ -210,11 +210,11 @@ export class WebRTCService {
     return this.socket;
   }
 
-  getLocalStream() {
+  getCurrentLocalStream() {
     return this.localStream;
   }
 
-  getScreenStream() {
+  getCurrentScreenStream() {
     return this.screenStream;
   }
 }

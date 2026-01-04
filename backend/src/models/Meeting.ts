@@ -100,15 +100,15 @@ export class MeetingModel {
     }
 
     const fields = ['status = $1'];
-    const values = [status];
+    const values: any[] = [status];
     let paramCount = 2;
 
     if (updates.actualStartTime) {
-      fields.push(`actual_start_time = $${paramCount++}`);
+      fields.push(`actual_start_time = ${paramCount++}`);
       values.push(updates.actualStartTime);
     }
     if (updates.actualEndTime) {
-      fields.push(`actual_end_time = $${paramCount++}`);
+      fields.push(`actual_end_time = ${paramCount++}`);
       values.push(updates.actualEndTime);
     }
 

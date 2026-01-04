@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
-import { RTCView } from 'react-native-webrtc';
 
 const { width, height } = Dimensions.get('window');
 
